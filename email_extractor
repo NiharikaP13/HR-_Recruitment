@@ -1,0 +1,55 @@
+import re
+
+def find_emails(text):
+    email_pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+    found_emails = re.findall(email_pattern,text)
+
+    unique_emails=[]
+    for email in found_emails:
+        if email not in unique_emails:
+            unique_emails.append(email)
+
+    return unique_emails
+
+print('==Simple Email Finder==')
+print('copy your linkedin comments and paste here')
+print('when you are done pasting ,press enter twice')        
+print()
+
+user_text = ""
+print("paste your text here:")
+
+
+while True:
+    line = input()
+    if line == "":
+        break
+    user_text = user_text+line+""
+
+if user_text.strip() =="":
+    print("you didn't paste any text here!")
+else:
+    emails = find_emails(user_text)
+
+    if len(emails) > 0:
+        print(f"\n Great!i found {len(emails)} email address(es):")
+        print("-" * 40) 
+
+        number = 1
+        for email in emails:
+            print(f"{number}.{email}")
+            number = number +1
+
+        print("-" * 40)
+
+        print('copy these emails to your word document')
+        print("\n all emails in one line")
+        all_emails = "," .join(emails)
+        print(all_emails)
+
+    else:
+        print("sorry, didn't find email address in your text.") 
+        print("make sure you copied the right text from linkedin")
+
+print("\n press enter to close the program")
+input()
